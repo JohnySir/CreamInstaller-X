@@ -1745,12 +1745,19 @@ internal sealed partial class MainForm : CustomForm
         }
     }
 
-    private void OnAccept(bool uninstall = false)
+    private void OnAccept(bool uninstall = false, bool createArchive = false)
     {
         if (Selection.All.IsEmpty || !uninstall && ParadoxLauncher.DlcDialog(this))
             return;
+        if (!uninstall)
+        {
+            DialogResult archiveChoice = ArchiveChoiceForm.Ask(this);
+            if (archiveChoice is DialogResult.Cancel)
+                return;
+            createArchive = archiveChoice is DialogResult.Yes;
+        }
         Hide();
-        InstallForm form = new(uninstall);
+        InstallForm form = new(uninstall, createArchive);
         form.InheritLocation(this);
         form.FormClosing += (_, _) =>
         {

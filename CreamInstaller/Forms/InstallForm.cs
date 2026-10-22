@@ -15,17 +15,19 @@ internal sealed partial class InstallForm : CustomForm
 {
     private readonly HashSet<Selection> activeSelections = new();
     private readonly bool uninstalling;
+    private readonly bool creatingArchive;
     private int completeOperationsCount;
     private int operationsCount;
     internal bool Reselecting;
     private int selectionCount;
 
-    internal InstallForm(bool uninstall = false)
+    internal InstallForm(bool uninstall = false, bool createArchive = false)
     {
         InitializeComponent();
         Text = Program.ApplicationName;
         logTextBox.BackColor = LogTextBox.Background;
         uninstalling = uninstall;
+        creatingArchive = createArchive;
     }
 
     private void UpdateProgress(int progress)
@@ -343,6 +345,8 @@ internal sealed partial class InstallForm : CustomForm
                     throw new CustomMessageException("The operation was canceled.");
                 UpdateUser($"Operation succeeded for {selection.Name}.", LogTextBox.Success);
                 ProgramData.Log.Info($"[InstallForm] Operation succeeded | Game: {selection.Name} ({selection.Id})", LogDestination.Unlocker);
+                if (!uninstalling && creatingArchive)
+                    await BypassArchive.CreateFor(selection, this);
                 _ = activeSelections.Remove(selection);
             }
             catch (Exception exception)

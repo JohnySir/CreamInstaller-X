@@ -1,6 +1,14 @@
 ### [Revived] CreamInstaller: Automatic DLC Unlocker Installer & Configuration Generator
 [![Latest Release](https://img.shields.io/github/v/release/FroggMaster/CreamInstaller?label=latest%20release)](https://github.com/FroggMaster/CreamInstaller/releases/latest) [![CI Build](https://github.com/FroggMaster/CreamInstaller/actions/workflows/ci-builds.yml/badge.svg)](https://github.com/FroggMaster/CreamInstaller/actions/workflows/ci-builds.yml)
 
+---
+> ### 🆕 What's new in this fork
+> - **Bypass archive option:** on "Generate and Install", a popup lets you choose to also create a ZIP archive
+>   (`<GameRoot>\_DLC Unlocker\<GameName>.zip`) containing every installed unlocker DLL + generated config +
+>   original DLL backups (`*_o.dll`), preserving the exact in-game folder structure for easy re-application.
+> - Choice popup: **Install and Create Archive** / **Install Without Archive** / **Cancel**.
+---
+
 ![Program Preview Image](https://raw.githubusercontent.com/FroggMaster/CreamInstaller/main/preview.png)
 
 ###### **NOTE:** This is simply a preview image; this is not a list of supported games nor configurations!
